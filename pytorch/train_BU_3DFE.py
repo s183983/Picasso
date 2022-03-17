@@ -49,11 +49,10 @@ def log_string(out_str):
 
 
 class TransformTrain(object):
-    def __init__(self, prob=0.5, num_classes=None, drop_rate=None, voxel_size=None):
+    def __init__(self, prob=0.5, num_classes=None, drop_rate=None):
         self.prob = prob
         self.num_classes = num_classes
         self.drop_rate = drop_rate     # the rate of dropping vertices
-        self.voxel_size = voxel_size
         
 
     def augment_fn(self, vertex, face, texture=None, vertex_label=None, face_label=None):
@@ -81,9 +80,7 @@ class TransformTrain(object):
     def __call__(self, args):
         vertex, face, label = args
         vertex, face, label = self.augment_fn(vertex[:,:3], face, vertex[:,3:], vertex_label=label)
-        if self.voxel_size>0:
-            vertex, face, label = meshUtil.voxelize_mesh(vertex, face, self.voxel_size,
-                                                         seg_labels=label)
+
 
         face_index = face.to(torch.long)
         face_texture = torch.cat([vertex[face_index[:,0],3:],
@@ -103,17 +100,14 @@ class TransformTrain(object):
 
 
 class TransformTest(object):
-    def __init__(self, prob=0.5, num_classes=None, drop_rate=None, voxel_size=None):
+    def __init__(self, prob=0.5, num_classes=None, drop_rate=None):
         self.prob = prob
         self.num_classes = num_classes
         self.drop_rate = drop_rate     # the rate of dropping vertices
-        self.voxel_size = voxel_size
 
     def __call__(self, args):
         vertex, face, label = args
-        if self.voxel_size:
-            vertex, face, label = meshUtil.voxelize_mesh(vertex, face, self.voxel_size,
-                                                         seg_labels=label)
+    
 
         face_index = face.to(torch.long)
         face_texture = torch.cat([vertex[face_index[:,0],3:],
