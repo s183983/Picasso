@@ -1,0 +1,10 @@
+.idea/*
+*.pyc
+*.m~
+
+# data files
+*.obj
+checkpoints
+
+pytorch/picasso/mesh/modules/source/*
+pytorch/picasso/point/modules/source/*
