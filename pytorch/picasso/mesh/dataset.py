@@ -37,15 +37,17 @@ class MeshDataset(Dataset):
         poly = np.array(dsa.WrapDataObject(reader.GetOutput()).Polygons)
         faces = np.reshape(poly,(-1,4))[:,1:4]
         
-        lab_name = os.path.join(self.lab_dir,'_'.join(os.path.basename(file).split('_')[0:2])+".npy")
+        lab_name = os.path.join(self.lab_dir,'_'.join(os.path.basename(file).split('_')[0:2])+".npz")
         loaded = np.load(lab_name)
-        label = loaded[self.lm_ids].T
-
-
-        args = [torch.from_numpy(vertices), torch.from_numpy(faces), torch.from_numpy(label)]
-
+        label_load = loaded["label"]
+        label = label_load[self.lm_ids].T
+        
         if self.rendered_data:
-            load_texture
+            textures = loaded["texture"]
+            vertices = np.concatenate((vertices,textures),axis=1)
+            
+            
+        args = [torch.from_numpy(vertices), torch.from_numpy(faces), torch.from_numpy(label)]
 
         if self.transform:
             args = self.transform(args)

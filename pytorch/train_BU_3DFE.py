@@ -11,9 +11,9 @@ import open3d as o3d
 from datetime import datetime
 import picasso.mesh.utils as meshUtil
 from picasso.augmentor import Augment
-from picasso.mesh.dataset import MeshDataset
 from picasso.models.shape_seg import PicassoNetII
-from picasso.mesh.dataset import default_collate_fn
+
+from picasso.mesh.dataset import MeshDataset, default_collate_fn
 from torchvision.transforms import Compose, ToTensor
 from torch.utils.data import DataLoader
 import glob 
@@ -33,6 +33,7 @@ parser.add_argument('--num_clusters', type=int, default=27, help='number of clus
 opt = parser.parse_args()
 
 LOG_DIR = os.path.join(opt.log_dir,opt.name)
+if not os.path.exists(opt.log_dir): os.mkdir(opt.log_dir)
 if not os.path.exists(LOG_DIR): os.mkdir(LOG_DIR)
 # os.system('cp train_ShapeNetCore.py %s'%(LOG_DIR))   # bkp of train procedure
 # os.system('cp picasso/models/shape_cls.py %s'%(LOG_DIR))
@@ -307,19 +308,19 @@ if __name__=='__main__':
     
 
     # build training set dataloader
-    trainSet = MeshDataset(files_train, root,opt.lm_ids, rendered_data=False,
+    trainSet = MeshDataset(files_train, root,opt.lm_ids, rendered_data=True,
                            transform=TransformTrain(num_classes=len(opt.lm_ids)+1))
     trainLoader = DataLoader(trainSet, batch_size=opt.batch_size, shuffle=True,
                              collate_fn=default_collate_fn(opt.max_num_vertices))
     # build validation set dataloader
-    valSet = MeshDataset(files_val, root,opt.lm_ids, rendered_data=False,
+    valSet = MeshDataset(files_val, root,opt.lm_ids, rendered_data=True,
                          transform=TransformTest(num_classes=len(opt.lm_ids)+1))
     valLoader = DataLoader(valSet, batch_size=opt.batch_size, shuffle=True,
                            collate_fn=default_collate_fn(opt.max_num_vertices))
 
     # create model & Make a loss object
-    # for i, data in enumerate(valLoader):
-    #     print(data.shape)
+    for i, data in enumerate(valLoader):
+        print(data.shape)
     net = PicassoNetII(num_class=NUM_CLASSES, mix_components=opt.num_clusters, use_height=True)
     model = MyModel(net,opt.name, LOG_DIR)
     
