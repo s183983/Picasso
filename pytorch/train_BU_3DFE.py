@@ -9,10 +9,10 @@ import torch
 import torch.nn as nn
 import open3d as o3d
 from datetime import datetime
-# import picasso.mesh.utils as meshUtil
-# from picasso.augmentor import Augment
+import picasso.mesh.utils as meshUtil
+from picasso.augmentor import Augment
 from picasso.mesh.dataset import MeshDataset
-# from picasso.models.shape_seg import PicassoNetII
+from picasso.models.shape_seg import PicassoNetII
 from picasso.mesh.dataset import default_collate_fn
 from torchvision.transforms import Compose, ToTensor
 from torch.utils.data import DataLoader
@@ -243,7 +243,8 @@ class MyModel:
                     t_data = iter_start_time - iter_data_time
                 total_steps += batch_size
                 epoch_iter += batch_size
-                meshes, labels = data
+                # meshes, labels = data
+                meshes, labels = data[:4], data[-1] #change if using texture
                 self.train_step(meshes, labels)
 
 
@@ -323,8 +324,8 @@ if __name__=='__main__':
                            collate_fn=default_collate_fn(opt.max_num_vertices))
 
     # create model & Make a loss object
-    for i, data in enumerate(valLoader):
-        print(data.shape)
+    # for i, data in enumerate(valLoader):
+    #     print(data.shape)
     net = PicassoNetII(num_class=NUM_CLASSES, mix_components=opt.num_clusters, use_height=True)
     model = MyModel(net,opt.name, LOG_DIR)
     

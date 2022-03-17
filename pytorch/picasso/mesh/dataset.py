@@ -12,8 +12,8 @@ import numpy as np
 import json
 import vtk
 from vtk.numpy_interface import dataset_adapter as dsa
-# from picasso.augmentor import Augment
-# import picasso.mesh.utils as meshUtil
+from picasso.augmentor import Augment
+import picasso.mesh.utils as meshUtil
 
 
 class MeshDataset(Dataset):
@@ -23,12 +23,7 @@ class MeshDataset(Dataset):
         self.transform = transform
         self.lm_ids = lm_ids
         self.rendered_data = rendered_data
-        if rendered_data:
-            self.keys = ['verex', 'face', 'face_texture', 'bary_coeff', 'num_texture', 'label']
-            self.num_keys = len(self.keys)
-        else:
-            self.keys = ['verex', 'face', 'label']
-            self.num_keys = len(self.keys)
+
 
     def __len__(self):
         return len(self.file_list)
