@@ -319,8 +319,8 @@ if __name__=='__main__':
                            collate_fn=default_collate_fn(opt.max_num_vertices))
 
     # create model & Make a loss object
-    for i, data in enumerate(valLoader):
-        print(data.shape)
+    # for i, data in enumerate(valLoader):
+    #     print(data.shape)
     net = PicassoNetII(num_class=NUM_CLASSES, mix_components=opt.num_clusters, use_height=True)
     model = MyModel(net,opt.name, LOG_DIR)
     
