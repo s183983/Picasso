@@ -148,7 +148,7 @@ class MyModel:
         starter_learning_rate = 0.001
         decay_steps = 20000
         decay_rate = 0.5
-        self.optimizer = torch.optim.Adam(params=self.net.parameters, lr = starter_learning_rate,
+        self.optimizer = torch.optim.Adam(params=self.net.parameters(), lr = starter_learning_rate,
                                      eps = 1e-08,
                                      weight_decay= 0)
         self.lr_scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer=self.optimizer,
