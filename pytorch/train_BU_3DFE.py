@@ -324,7 +324,7 @@ if __name__=='__main__':
     # for i, data in enumerate(valLoader):
     #     print(data.shape)
     net = PicassoNetII(num_class=NUM_CLASSES, mix_components=opt.num_clusters, use_height=True)
-    model = MyModel(net,opt.name, LOG_DIR)
+    model = MyModel(net, LOG_DIR)
     
     model.fit(trainLoader,valLoader,opt.batch_size)
     
