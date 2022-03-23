@@ -18,13 +18,13 @@ class Writer:
         self.log_name = os.path.join(self.save_dir, 'loss_log.txt')
         self.testacc_log = os.path.join(self.save_dir, 'testacc_log.txt')
         self.final_test_file = os.path.join(self.save_dir, 'final_test_acc.txt')
-        self.start_logs()
+        
         self.nexamples = 0
         self.ncorrect = 0
         self.mode = mode
         self.phase = phase
         
-
+        self.start_logs()
         self.display = None
         if phase =="final_test":
             with open(self.final_test_file, "a") as log_file:
