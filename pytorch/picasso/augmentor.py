@@ -39,6 +39,9 @@ class Augment:
         """
         if torch.rand([])<prob:
             angle = torch.randn([3])*angle_sigma
+            print("angle")
+            print(angle.shape)
+            print(angle)
             Rx = cls.rot_x([angle[0]])
             Ry = cls.rot_y([angle[1]])
             Rz = cls.rot_z([angle[2]])
