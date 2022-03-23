@@ -12,7 +12,8 @@ from .pi2_blocks import DualBlock, EncoderMeshBlock, FirstBlock
 class PicassoNetII(nn.Module):
     def __init__(self, num_class, stride=None, mix_components=27, use_height=False):
         super(PicassoNetII,self).__init__()
-
+        
+        self.predFacet = False
         if stride is None:
             self.stride = [1.5, 1.5, 1.5, 1.5]
         else:
