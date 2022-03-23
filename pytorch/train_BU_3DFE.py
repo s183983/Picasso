@@ -23,7 +23,7 @@ from sys import platform
 parser = argparse.ArgumentParser()
 parser.add_argument('--name',type=str, default="debug", help='path to tfrecord data')
 parser.add_argument('--lm_ids',nargs='+', type=int, default= [0], help='number of cluster components')
-
+parser.add_argument('--user',type=str, default="s183983", help='path to tfrecord data')
 parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')
 parser.add_argument('--log_dir', default='../checkpoints', help='Log dir [default: ../log_shapenetcore]')
 parser.add_argument('--ckpt_epoch', type=int, default=None, help='epoch model to load [default: None]')
@@ -300,7 +300,8 @@ if __name__=='__main__':
     if platform == "win32":
         root = 'C:/Users/lowes/OneDrive/Skrivebord/DTU/8_Semester/Advaced_Geometric_DL/BU_3DFE_3DHeatmaps_crop_2/'
     else:
-        root = "/scratch/s183983/data_cropped/"
+        root = "/scratch/s183983/data_cropped/" if opt.user=="s183983" \
+            else "/scratch/s183986//BU_3DFE_3DHeatmaps_crop/"
     # json file_lists
     files_train = glob.glob(os.path.join(root,"train","*.vtk"))
     files_val = glob.glob(os.path.join(root,"val","*.vtk"))
