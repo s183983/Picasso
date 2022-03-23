@@ -154,7 +154,8 @@ class MyModel:
         self.lr_scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer=self.optimizer,
                                                                   gamma=decay_rate)
         self.loss = None
-        self.load_network(start_epoch)
+        if start_epoch > 0:
+            self.load_network(start_epoch)
         self.writer = Writer(save_dir)
         
 
