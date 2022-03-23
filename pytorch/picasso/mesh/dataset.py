@@ -23,6 +23,7 @@ class MeshDataset(Dataset):
         self.transform = transform
         self.lm_ids = lm_ids
         self.rendered_data = rendered_data
+        self.device = "cuda:0"
 
 
     def __len__(self):
@@ -51,12 +52,13 @@ class MeshDataset(Dataset):
 
         if self.transform:
             args = self.transform(args)
-
+        out = [a.to(self.device) for a in args]
         # plain args:  vertex, face, nv, mf, label
         # render args: vertex, face, nv, mf, face_texture, bary_coeff, num_texture, label
         args.insert(2, torch.tensor([vertices.shape[0]]))
         args.insert(3, torch.tensor([faces.shape[0]]))
-        return args
+        out = [a.to(self.device) for a in args]
+        return out
 
 
 class default_collate_fn:
