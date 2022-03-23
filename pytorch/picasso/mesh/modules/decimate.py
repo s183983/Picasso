@@ -29,6 +29,9 @@ def mesh_decimation_(vertexIn, faceIn, geometryIn, nvIn, mfIn, nvOut, useArea=Tr
         vtMap:       (batch_npoints,) int32 array, contracted/degenerated vertices got mapping to -1,
                                       the valid vertices got mapping start from 0
     '''
+    nvIn = nvIn.int32()
+    nvOut = nvOut.int32()
+    mfIn = mfIn.int32()
     nv2Remove = nvIn - nvOut
     repIn = torch.zeros([vertexIn.shape[0]], dtype=torch.int32, device=nvIn.get_device())
     mapIn = torch.arange(repIn.shape[0], dtype=torch.int32, device=nvIn.get_device())
