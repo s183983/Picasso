@@ -227,7 +227,7 @@ class MyModel:
     def fit(self, train_set, vali_set, batch_size, start_epoch = 0, n_epochs = 200):
         total_steps = 0
         print_freq = 20
-        self.net.train(self.is_train)
+        self.net.train()
         for epoch in range(start_epoch, n_epochs + 1):
             epoch_start_time = time.time()
             iter_data_time = time.time()
