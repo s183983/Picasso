@@ -50,7 +50,7 @@ def log_string(out_str):
 
 
 class TransformTrain(object):
-    def __init__(self, prob=0.5, num_classes=None, drop_rate=None):
+    def __init__(self, prob=0.5, num_classes=None, drop_rate=0.1):
         self.prob = prob
         self.num_classes = num_classes
         self.drop_rate = drop_rate     # the rate of dropping vertices
@@ -101,7 +101,7 @@ class TransformTrain(object):
 
 
 class TransformTest(object):
-    def __init__(self, prob=0.5, num_classes=None, drop_rate=None):
+    def __init__(self, prob=0.5, num_classes=None, drop_rate=0.1):
         self.prob = prob
         self.num_classes = num_classes
         self.drop_rate = drop_rate     # the rate of dropping vertices
