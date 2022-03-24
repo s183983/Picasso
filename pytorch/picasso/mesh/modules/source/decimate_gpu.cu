@@ -600,7 +600,7 @@ __host__ void clusterVertices(const int Ne, const int uniqueNe, const int vtNum,
             //int temp = vk1;
             //vk1 = vk2;
             //vk2 = temp;
-            std::swap(vk1,vk2)
+            std::swap(vk1,vk2);
         }
         if (vtReplace[vk1]<0)
             vk1 = -vtReplace[vk1];
