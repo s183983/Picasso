@@ -700,8 +700,10 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
         int prevNum = 0;
         if(b>0)   prevNum = h_nvIn[b-1];
         const int vtNum = h_nvIn[b] - prevNum;
+        std::cout<<"clusterVertices start\n";
         clusterVertices(Ne, uniqueNe, vtNum, prevNum, h_edgeOut, &h_edgeIdx[0],
                         h_nv2Remove[b], h_vtReplace);
+        std::cout<<"clusterVertices done\n";
 
         beginIdx = endIdx;
         std::cout<<"Line 705: free edgeCost.\n";
