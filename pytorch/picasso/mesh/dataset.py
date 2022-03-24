@@ -23,7 +23,7 @@ class MeshDataset(Dataset):
         self.transform = transform
         self.lm_ids = lm_ids
         self.rendered_data = rendered_data
-        self.device = "cuda:0"
+        self.device = "cuda"
 
 
     def __len__(self):

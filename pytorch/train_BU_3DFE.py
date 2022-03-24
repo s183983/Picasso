@@ -134,7 +134,7 @@ class MyModel:
         '''
         super(MyModel, self).__init__()
         self.save_dir = save_dir
-        self.device = "cuda:0"
+        self.device = "cuda"
         net.cuda(0)
         self.net = net.cuda()
         self.net.to(self.device)
