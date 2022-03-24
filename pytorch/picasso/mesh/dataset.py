@@ -52,6 +52,7 @@ class MeshDataset(Dataset):
             label_load = np.load(lab_name)
             # label_load = loaded["label"]
             label = label_load[self.lm_ids].T
+            vertices = np.concatenate((vertices,np.ones_like(vertices)),axis=1)
             
         args = [torch.from_numpy(vertices), torch.from_numpy(faces), torch.from_numpy(label)]
 
