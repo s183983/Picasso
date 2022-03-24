@@ -681,10 +681,12 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
         // Compute Quadric cost of each unique edge
         float* edgeCost;
         numGrid = int(uniqueNe/1024) + 1;
+        std::cout<<"Malloc start\n";
         cudaMalloc(&edgeCost, uniqueNe*sizeof(float));
         computeEdgeCost<<<numGrid,1024>>>(uniqueNe, Ne, D, vertexIn, edgeOut,
                                           thrust::raw_pointer_cast(edgeIdx.data()+beginIdx),
-                                          vertexQuadric, edgeCost);
+                                         vertexQuadric, edgeCost);
+        std::cout<<"Malloc done\n";
         //cudaDeviceSynchronize();
 
         // sorting unique edges based on their cost using thrust::sort_by_key
@@ -693,9 +695,11 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
 
         // copy from device to host h_edgeIdx
         int* h_edgeIdx = new int[uniqueNe];
+        std::cout<<"memcpy start\n";
         cudaMemcpy(h_edgeIdx, thrust::raw_pointer_cast(edgeIdx.data()+beginIdx),
                    uniqueNe*sizeof(int), cudaMemcpyDeviceToHost);
-
+        
+        std::cout<<"memcpy done\n";
         // Vertex cluster: seed/disjoint pair generation on CPU with conditional-loops
         int prevNum = 0;
         if(b>0)   prevNum = h_nvIn[b-1];
