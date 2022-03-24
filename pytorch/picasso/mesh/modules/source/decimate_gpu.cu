@@ -666,7 +666,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
     srand(time(0));  // setting seed of random_shuffle as current time
 
     int beginIdx=0, endIdx;
-    std::cout << "Do loop " << B << " number of times";
+    std::cout << "Do loop " << B << " number of times\n";
     for(int b=0;b<B;b++)
     {
         endIdx = 3*h_mfIn[b];
