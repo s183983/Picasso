@@ -702,7 +702,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
                         h_nv2Remove[b], h_vtReplace);
 
         beginIdx = endIdx;
-
+        std::cout<<"Line 705: free edgeCost.\n";
         cudaFree(edgeCost);
         delete[] h_edgeIdx;
     }
@@ -737,6 +737,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
     //cudaDeviceSynchronize();
 
     // free the cpu and gpu memory
+    td::cout<<"Line 740: free vertexQuadric, edgeOut, isKept.\n";
     cudaFree(vertexQuadric);
     cudaFree(edgeOut);
     cudaFree(isKept);
