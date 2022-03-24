@@ -6,5 +6,10 @@
 *.obj
 checkpoints
 
-pytorch/picasso/mesh/modules/source/*
+pytorch/picasso/mesh/modules/source/build
+pytorch/picasso/mesh/modules/source/convolution.egg-info
+pytorch/picasso/mesh/modules/source/decimation.egg-info
+pytorch/picasso/mesh/modules/source/dist
+pytorch/picasso/mesh/modules/source/pool.egg-info
+pytorch/picasso/mesh/modules/source/unpool.egg-info
 pytorch/picasso/point/modules/source/*
