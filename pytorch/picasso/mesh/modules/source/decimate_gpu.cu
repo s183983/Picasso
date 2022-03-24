@@ -597,9 +597,10 @@ __host__ void clusterVertices(const int Ne, const int uniqueNe, const int vtNum,
         if (Covered[vk2-startIdx]==1)  // only `vk2' is in seed vertex pair
         {
             // swap `vk1' and `vk2'
-            int temp = vk1;
-            vk1 = vk2;
-            vk2 = temp;
+            //int temp = vk1;
+            //vk1 = vk2;
+            //vk2 = temp;
+            std::swap(vk1,vk2)
         }
         if (vtReplace[vk1]<0)
             vk1 = -vtReplace[vk1];
