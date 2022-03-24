@@ -669,6 +669,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
     std::cout << "Do loop " << B << " number of times\n";
     for(int b=0;b<B;b++)
     {
+        std::cout<<"Do loop\n"
         endIdx = 3*h_mfIn[b];
 
         // get unique edges using thrust:unique on GPU, which forms the candidate vertex pairs
