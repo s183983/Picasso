@@ -704,6 +704,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
         beginIdx = endIdx;
         std::cout<<"Line 705: free edgeCost.\n";
         cudaFree(edgeCost);
+        std::cout<<"Line 707: free edgeCost success.\n";
         delete[] h_edgeIdx;
     }
     cudaMemcpy(vtReplace, h_vtReplace, Nv*sizeof(int), cudaMemcpyHostToDevice);
