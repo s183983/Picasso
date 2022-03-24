@@ -675,11 +675,14 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
         // get unique edges using thrust:unique on GPU, which forms the candidate vertex pairs
         // IMPORTANT: edgeOut is still in size (3,Ne), it's just the first uniquNe columns
         // forms the unique edges
+        std::cout<<"Line 678\n"
         int uniqueNe = thrust::unique(thrust::device, edgeIdx.data()+beginIdx, edgeIdx.data()+endIdx,
                                       edge_unique_func<int>(Ne, edgeOut)) - (edgeIdx.data()+beginIdx);
 
         // Compute Quadric cost of each unique edge
+        std::cout<<"Line 683\n"
         float* edgeCost;
+        std::cout<<"Line 685\n"
         numGrid = int(uniqueNe/1024) + 1;
         std::cout<<"Malloc start\n";
         cudaMalloc(&edgeCost, uniqueNe*sizeof(float));
