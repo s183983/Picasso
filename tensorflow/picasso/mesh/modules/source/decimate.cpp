@@ -1,4 +1,4 @@
-#include <cuda/include/cuda.h>
+#include <opt/cuda/cuda-11.3/include/cuda.h>
 #include <cuda_runtime.h>
 #include "tensorflow/core/framework/op.h"
 #include "tensorflow/core/framework/op_kernel.h"
