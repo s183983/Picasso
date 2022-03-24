@@ -34,17 +34,19 @@ def mesh_decimation_(vertexIn, faceIn, geometryIn, nvIn, mfIn, nvOut, useArea=Tr
     mfIn = mfIn.int()
     faceIn = faceIn.int()
     nv2Remove = nvIn - nvOut
+    print(nvIn)
     repIn = torch.zeros([vertexIn.shape[0]], dtype=torch.int32, device=nvIn.get_device())
     mapIn = torch.arange(repIn.shape[0], dtype=torch.int32, device=nvIn.get_device())
 
     while torch.any(nv2Remove>0):
         nvIn_cumsum = torch.cumsum(nvIn, dim=-1, dtype=torch.int32)
         mfIn_cumsum = torch.cumsum(mfIn, dim=-1, dtype=torch.int32)
-
+        print("doing cpp")
         vertexOut, faceOut, isDegenerate, repOut, mapOut, \
         nvOut, mfOut = module.mesh_decimation(vertexIn, faceIn, geometryIn, \
                                               nvIn_cumsum, mfIn_cumsum, nv2Remove, \
                                               useArea, wgtBnd)
+        print("cpp succesfull")
         faceIn = faceOut[~isDegenerate,:]
         vertexIn = vertexOut[mapOut>=0,:]
         geometryIn = compute_triangle_geometry_(vertexIn, faceIn)

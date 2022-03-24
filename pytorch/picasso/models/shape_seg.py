@@ -132,9 +132,9 @@ class PicassoNetII(nn.Module):
         vertex_input = vertex_in
         vertex_in = vertex_in[:,:3]
 
-        # build mesh hierarchy
+        print("build mesh hierarchy")
         mesh_hierarchy = self.build_mesh_hierarchy(vertex_in, face_in, nv_in, mf_in)
-
+        print("done with mesh hierarchy")
         # import open3d as o3d
         # for i in range(6):
         #     vertex_in, face_in, geometry_in, nv_in = mesh_hierarchy[i][:4]
@@ -146,6 +146,7 @@ class PicassoNetII(nn.Module):
         #     o3d.visualization.draw_geometries([mesh], mesh_show_back_face=True)
 
         decoder_helper = []
+        print("Initial Conv")
         # ============================================Initial Conv==============================================
         vertex_in, face_in, geometry_in, nv_in = mesh_hierarchy[0][:4]
         full_vt_map = torch.arange(vertex_in.shape[0]).to(torch.int)
@@ -159,6 +160,7 @@ class PicassoNetII(nn.Module):
         # ============================================Encoder Flow==============================================
         for k in range(self.num_blocks):
             # block computation:
+            print("Encoder no.",k)
             vertex_in, face_in, geometry_in, nv_in = mesh_hierarchy[k][:4]
             full_vt_map = torch.arange(vertex_in.shape[0]).to(torch.int)
             full_nf_count = meshUtil.count_vertex_adjface(face_in, full_vt_map, vertex_in)
