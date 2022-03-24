@@ -737,7 +737,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
     //cudaDeviceSynchronize();
 
     // free the cpu and gpu memory
-    td::cout<<"Line 740: free vertexQuadric, edgeOut, isKept.\n";
+    std::cout<<"Line 740: free vertexQuadric, edgeOut, isKept.\n";
     cudaFree(vertexQuadric);
     cudaFree(edgeOut);
     cudaFree(isKept);
