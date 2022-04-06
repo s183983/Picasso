@@ -89,7 +89,7 @@ class PicassoNetII(nn.Module):
         self.Predict = PerItemConv3d(96, self.num_class, with_bn=False, activation_fn=None)
 
     def extract_facet_geometric_features(self, vertex, face, normals):
-        face = face.int()
+        face = face.long()
         V1 = vertex[face[:,0],:]
         V2 = vertex[face[:,1],:]
         V3 = vertex[face[:,2],:]
