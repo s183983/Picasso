@@ -152,9 +152,9 @@ class PicassoNetII(nn.Module):
         # ============================================Initial Conv==============================================
         vertex_in, face_in, geometry_in, nv_in = mesh_hierarchy[0][:4]
         full_vt_map = torch.arange(vertex_in.shape[0]).to(self.device).to(torch.int)
-        print("face_type",face_in)
-        print("vt_map_type",full_vt_map)
-        print("vertex_in_type",vertex_in)
+        print("face_type",face_in.dtype)
+        print("vt_map_type",full_vt_map.dtype)
+        print("vertex_in_type",vertex_in.dtype)
         full_nf_count = meshUtil.count_vertex_adjface(face_in, full_vt_map, vertex_in)
         face_normals = self.compute_face_normals(geometry_in, shuffle_normals=shuffle_normals)
         facet_geometrics = self.extract_facet_geometric_features(vertex_input, face_in, face_normals)
