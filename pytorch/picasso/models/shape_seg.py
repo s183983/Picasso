@@ -123,7 +123,7 @@ class PicassoNetII(nn.Module):
     @staticmethod
     def get_face_normals(geometry_in, shuffle_normals=None):
         if shuffle_normals:
-            sign = torch.rand(geometry_in.shape[0], 1)
+            sign = torch.rand(geometry_in.shape[0], 1, device=geometry_in.get_device())
             sign = torch.where(sign<0.5, -1.0, 1.0)
             face_normals = sign*geometry_in[:,:3]
         else:
