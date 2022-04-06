@@ -33,6 +33,7 @@ parser.add_argument('--num_clusters', type=int, default=27, help='number of clus
 # parser.add_argument('--debug', action='store_true', help='debug')
 opt = parser.parse_args()
 
+debug = True
 LOG_DIR = os.path.join(opt.log_dir,opt.name)
 if not os.path.exists(opt.log_dir): os.mkdir(opt.log_dir)
 if not os.path.exists(LOG_DIR): os.mkdir(LOG_DIR)
@@ -308,8 +309,8 @@ if __name__=='__main__':
     files_train = glob.glob(os.path.join(root,"train","*.vtk"))
     files_val = glob.glob(os.path.join(root,"val","*.vtk"))
     files_test = glob.glob(os.path.join(root,"test","*.vtk"))
-    if True:#opt.debug:
-        files_train = glob.glob(os.path.join(root,"debug","*.vtk"))
+    if debug:
+        files_train = glob.glob(os.path.join("debug_data","*.vtk"))
         print("Debug")
 
     # build training set dataloader

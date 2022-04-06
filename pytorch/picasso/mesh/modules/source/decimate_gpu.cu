@@ -719,7 +719,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
         std::cout<<"Line 719: free edgeCost success.\n";
         delete[] h_edgeIdx;
     }
-    std::cout<<"Line 724: loop success.\n";
+    std::cout<<"Line 722: loop success.\n";
     cudaMemcpy(vtReplace, h_vtReplace, Nv*sizeof(int), cudaMemcpyHostToDevice);
     
     // Vertex cluster contraction on GPU in parallel, and compute nvOut
@@ -727,7 +727,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
     VertexClusterQuadrics<<<numGrid,1024>>>(B, D, nvIn, vtReplace, vertexIn, vertexQuadric, vertexOut);
     VertexClusterContraction<<<numGrid,1024>>>(B, D, nvIn, vtReplace, vertexIn, vertexQuadric, vertexOut);
     //cudaDeviceSynchronize();
-
+    std::cout<<"Line 730: cudaMemcpy success.\n";
     // Label degenerate faces(w/o silver triangles), and compute mfOut
     int* isKept;
     cudaMalloc(&isKept, Nv*sizeof(int));
@@ -736,7 +736,7 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
     labelDegenerateTriangles<<<numGrid,1024>>>(B, D, mfIn, vtReplace, vertexOut, faceIn, faceOut,
                                                isDegenerate, isKept, mfOut);
     //cudaDeviceSynchronize();
-
+    std::cout<<"Line 739: cudaMalloc success.\n";
     // update vertex indices(e.g. vtMap), some of them are not existing any more because of degenerate faces
     cudaMemcpy(vtMap, isKept, Nv*sizeof(int), cudaMemcpyDeviceToDevice);
     thrust::inclusive_scan(thrust::device, vtMap, vtMap+Nv, vtMap);
