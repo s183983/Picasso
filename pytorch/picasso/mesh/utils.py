@@ -26,7 +26,7 @@ def compute_triangle_geometry(vertex, face):
 
 # Count the number of adjacent faces for output vertices, i.e. vertices with vtMap[i]>=0
 def count_vertex_adjface(face, vtMap, vertexOut):
-    nf_count = count_vertex_adjface_(face, vtMap, vertexOut)
+    nf_count = count_vertex_adjface_(face.int(), vtMap.int(), vertexOut)
     return nf_count
 
 
