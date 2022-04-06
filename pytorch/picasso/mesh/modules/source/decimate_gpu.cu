@@ -714,13 +714,14 @@ void meshDecimationLauncher(const bool useArea, const float wgtBnd,     //hyperp
         std::cout<<"clusterVertices done\n";
 
         beginIdx = endIdx;
-        std::cout<<"Line 705: free edgeCost.\n";
+        std::cout<<"Line 717: free edgeCost.\n";
         cudaFree(edgeCost);
-        std::cout<<"Line 707: free edgeCost success.\n";
+        std::cout<<"Line 719: free edgeCost success.\n";
         delete[] h_edgeIdx;
     }
+    std::cout<<"Line 724: loop success.\n";
     cudaMemcpy(vtReplace, h_vtReplace, Nv*sizeof(int), cudaMemcpyHostToDevice);
-
+    
     // Vertex cluster contraction on GPU in parallel, and compute nvOut
     numGrid = int(Nv/1024) + 1;
     VertexClusterQuadrics<<<numGrid,1024>>>(B, D, nvIn, vtReplace, vertexIn, vertexQuadric, vertexOut);
