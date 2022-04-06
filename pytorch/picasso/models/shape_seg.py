@@ -19,6 +19,8 @@ class PicassoNetII(nn.Module):
         else:
             assert(len(stride)==4)
             self.stride = stride
+            
+        self.device = "cuda"
         self.num_class = num_class
         self.num_clusters = mix_components
         self.useArea, self.wgtBnd = (True, 1.) # recommended hyper-parameters for mesh decimation
@@ -149,7 +151,7 @@ class PicassoNetII(nn.Module):
         print("Initial Conv")
         # ============================================Initial Conv==============================================
         vertex_in, face_in, geometry_in, nv_in = mesh_hierarchy[0][:4]
-        full_vt_map = torch.arange(vertex_in.shape[0]).to(torch.int)
+        full_vt_map = torch.arange(vertex_in.shape[0]).to(torch.int).to(self.device)
         full_nf_count = meshUtil.count_vertex_adjface(face_in, full_vt_map, vertex_in)
         face_normals = self.compute_face_normals(geometry_in, shuffle_normals=shuffle_normals)
         facet_geometrics = self.extract_facet_geometric_features(vertex_input, face_in, face_normals)
