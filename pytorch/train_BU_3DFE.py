@@ -30,7 +30,7 @@ parser.add_argument('--ckpt_epoch', type=int, default=None, help='epoch model to
 parser.add_argument('--batch_size', type=int, default=2, help='Batch Size during training [default: 16]')
 parser.add_argument('--max_num_vertices', type=int, default=1500000, help='maximum vertices allowed in a batch')
 parser.add_argument('--num_clusters', type=int, default=27, help='number of cluster components')
-parser.add_argument('--debug', action='store_true', help='debug')
+# parser.add_argument('--debug', action='store_true', help='debug')
 opt = parser.parse_args()
 
 LOG_DIR = os.path.join(opt.log_dir,opt.name)
@@ -308,7 +308,7 @@ if __name__=='__main__':
     files_train = glob.glob(os.path.join(root,"train","*.vtk"))
     files_val = glob.glob(os.path.join(root,"val","*.vtk"))
     files_test = glob.glob(os.path.join(root,"test","*.vtk"))
-    if opt.debug:
+    if True:#opt.debug:
         files_train = glob.glob(os.path.join(root,"debug","*.vtk"))
         print("Debug")
 
