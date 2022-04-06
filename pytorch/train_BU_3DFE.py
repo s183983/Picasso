@@ -310,6 +310,7 @@ if __name__=='__main__':
     files_test = glob.glob(os.path.join(root,"test","*.vtk"))
     if opt.debug:
         files_train = glob.glob(os.path.join(root,"debug","*.vtk"))
+        print("Debug")
 
     # build training set dataloader
     trainSet = MeshDataset(files_train, root,opt.lm_ids, rendered_data=True,
