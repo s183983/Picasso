@@ -159,7 +159,7 @@ class PicassoNetII(nn.Module):
         face_normals = self.get_face_normals(geometry_in, shuffle_normals=shuffle_normals)
         facet_geometrics = self.extract_facet_geometric_features(vertex_input, face_in, face_normals)
         filt_coeff = self.cluster[0](face_normals=face_normals)
-        feats = self.Conv0(facet_geometrics, face_in, full_nf_count, full_vt_map, filt_coeff)
+        feats = self.Conv0(facet_geometrics, face_in.int(), full_nf_count.int(), full_vt_map, filt_coeff)
         # ===============================================The End================================================
 
         # ============================================Encoder Flow==============================================
