@@ -5,7 +5,7 @@ import numpy as np
 from typing import List
 from torch_scatter import scatter_mean, scatter_max
 from .modules import *
-
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def _filter_variable_(shape, stddev=1.0, use_xavier=True):
     weight = nn.Parameter(torch.empty(shape))
@@ -302,7 +302,7 @@ class BuildF2VCoeff(nn.Module):
         # Note: face normal features are already unit vectors
         # normalize clustering center of normals to unit vectors
         l2norm = torch.sqrt(torch.sum(self.centers**2, dim=-1, keepdim=True))
-        norm_center = self.centers/l2norm  # unit length normal vectors
+        norm_center = (self.centers/l2norm).to(device)  # unit length normal vectors
 
         cos_theta = torch.matmul(face_normals, norm_center.t())  # cos(theta): range [-1,1]
         zeta = cos_theta/self.tau
