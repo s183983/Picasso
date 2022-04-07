@@ -200,6 +200,7 @@ class PerItemConv3d(nn.Module):
         self.use_xavier = use_xavier
         self.stddev = stddev
         self.with_bn = with_bn
+        self.with_bias = True
         self.activation_fn = activation_fn
         if with_bn:
             self.BatchNorm = nn.BatchNorm1d(out_channels, momentum=bn_momentum)

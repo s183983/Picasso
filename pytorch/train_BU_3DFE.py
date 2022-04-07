@@ -319,10 +319,11 @@ if __name__=='__main__':
     trainLoader = DataLoader(trainSet, batch_size=opt.batch_size, shuffle=True,
                              collate_fn=default_collate_fn(opt.max_num_vertices))
     # build validation set dataloader
-    valSet = MeshDataset(files_val, root,opt.lm_ids, rendered_data=True,
-                         transform=TransformTest(num_classes=len(opt.lm_ids)+1))
-    valLoader = DataLoader(valSet, batch_size=opt.batch_size, shuffle=True,
-                           collate_fn=default_collate_fn(opt.max_num_vertices))
+    if not debug:
+        valSet = MeshDataset(files_val, root,opt.lm_ids, rendered_data=True,
+                             transform=TransformTest(num_classes=len(opt.lm_ids)+1))
+        valLoader = DataLoader(valSet, batch_size=opt.batch_size, shuffle=True,
+                               collate_fn=default_collate_fn(opt.max_num_vertices))
 
     # create model & Make a loss object
     # for i, data in enumerate(valLoader):
