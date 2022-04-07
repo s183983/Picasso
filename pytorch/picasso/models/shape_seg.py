@@ -171,7 +171,7 @@ class PicassoNetII(nn.Module):
             full_nf_count = meshUtil.count_vertex_adjface(face_in, full_vt_map, vertex_in)
             face_normals = self.get_face_normals(geometry_in, shuffle_normals=shuffle_normals)
             filt_coeff = self.cluster[k](face_normals=face_normals)
-            feats = self.Block[k](feats, vertex_in, face_in, full_nf_count, full_vt_map, filt_coeff, nv_in)
+            feats = self.Block[k](feats, face_in, full_nf_count, full_vt_map, filt_coeff) #vertex_in, nv_in,
 
             if k<(self.num_blocks-1):
                 decoder_helper.append(feats)
