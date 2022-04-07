@@ -193,7 +193,7 @@ class PerItemConv3d(nn.Module):
       Variable tensor
     """
     def __init__(self, in_channels, out_channels, use_xavier=True, stddev=1e-3,
-                 with_bn=True, activation_fn=nn.ReLU, bn_momentum=0.1):
+                 with_bn=True, activation_fn=nn.ReLU(), bn_momentum=0.1):
         super(PerItemConv3d, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
