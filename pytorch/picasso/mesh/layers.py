@@ -88,7 +88,7 @@ class V2FConv3d(nn.Module):
     def reset_parameters(self):
         # depthwise kernel shape
         v2f_kernel_shape = [3, self.in_channels, self.multiplier]
-        self.spatial_weights = _filter_variable_(v2f_kernel_shape, use_xavier=self.use_xavier)
+        self.spatial_weights = _filter_variable_(v2f_kernel_shape, use_xavier=self.use_xavier).to(device)
 
         # pointwise kernel shape
         kernel_shape = [self.in_channels*self.multiplier, self.out_channels]

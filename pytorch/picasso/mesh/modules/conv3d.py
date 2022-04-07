@@ -45,7 +45,7 @@ class v2f_Function(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input, filter, face):
         face.requires_grad = False
-        output = module.vertex2facet_forward(input, filter, face).to(device)
+        output = module.vertex2facet_forward(input, filter, face)
         variables = [input, filter, face]
         ctx.save_for_backward(*variables)
         return output
@@ -78,7 +78,7 @@ class f2v_Function(torch.autograd.Function):
         face.requires_grad = False
         nfCount.requires_grad = False
         vtMap.requires_grad = False
-        output = module.facet2vertex_forward(input, filter, coeff, face, nfCount, vtMap).to(device)
+        output = module.facet2vertex_forward(input, filter, coeff, face, nfCount, vtMap)
         variables = [input, filter, coeff, face, nfCount, vtMap]
         ctx.save_for_backward(*variables)
         return output
