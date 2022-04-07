@@ -20,7 +20,7 @@ class PicassoNetII(nn.Module):
             assert(len(stride)==4)
             self.stride = stride
             
-        self.device = "cuda"
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.num_class = num_class
         self.num_clusters = mix_components
         self.useArea, self.wgtBnd = (True, 1.) # recommended hyper-parameters for mesh decimation
@@ -167,7 +167,7 @@ class PicassoNetII(nn.Module):
             # block computation:
             print("Encoder no.",k)
             vertex_in, face_in, geometry_in, nv_in = mesh_hierarchy[k][:4]
-            full_vt_map = torch.arange(vertex_in.shape[0]).to(torch.int)
+            full_vt_map = torch.arange(vertex_in.shape[0]).to(self.device).to(torch.int)
             full_nf_count = meshUtil.count_vertex_adjface(face_in, full_vt_map, vertex_in)
             face_normals = self.get_face_normals(geometry_in, shuffle_normals=shuffle_normals)
             filt_coeff = self.cluster[k](face_normals=face_normals)
