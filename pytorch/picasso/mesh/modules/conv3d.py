@@ -4,6 +4,7 @@ srcDir = os.path.dirname(os.path.abspath(__file__))
 module = load(name='convolution', sources=['%s/source/mesh_conv3d.cpp'%srcDir,
                                            '%s/source/mesh_conv3d_gpu.cu'%srcDir])
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class f2f_Function(torch.autograd.Function):
     @staticmethod
@@ -44,7 +45,7 @@ class v2f_Function(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input, filter, face):
         face.requires_grad = False
-        output = module.vertex2facet_forward(input, filter, face)
+        output = module.vertex2facet_forward(input, filter, face).to(device)
         variables = [input, filter, face]
         ctx.save_for_backward(*variables)
         return output
@@ -77,7 +78,7 @@ class f2v_Function(torch.autograd.Function):
         face.requires_grad = False
         nfCount.requires_grad = False
         vtMap.requires_grad = False
-        output = module.facet2vertex_forward(input, filter, coeff, face, nfCount, vtMap)
+        output = module.facet2vertex_forward(input, filter, coeff, face, nfCount, vtMap).to(device)
         variables = [input, filter, coeff, face, nfCount, vtMap]
         ctx.save_for_backward(*variables)
         return output
