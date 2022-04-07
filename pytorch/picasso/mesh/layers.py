@@ -177,8 +177,8 @@ class V2VConv3d(nn.Module):
                                     stddev, with_bn, activation_fn, bn_momentum)
 
     def forward(self, inputs, face, nf_count, vt_map, filt_coeff):
-        outputs = self.V2F_conv3d(inputs, face)
-        outputs = self.F2V_conv3d(outputs, face, nf_count, vt_map, filt_coeff)
+        outputs = self.V2FConv3d(inputs, face)
+        outputs = self.F2VConv3d(outputs, face, nf_count, vt_map, filt_coeff)
         return outputs
 
 
